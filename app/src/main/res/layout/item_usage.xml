@@ -22,7 +22,7 @@
         android:layout_marginStart="16dp"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/usageTime"
+        app:layout_constraintEnd_toStartOf="@+id/timeLayout"
         app:layout_constraintStart_toEndOf="@+id/appIcon"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="App Name" />
@@ -32,19 +32,34 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/usageTime"
+        app:layout_constraintEnd_toStartOf="@+id/timeLayout"
         app:layout_constraintStart_toStartOf="@+id/appName"
         app:layout_constraintTop_toBottomOf="@+id/appName"
         tools:text="com.example.package" />
 
-    <TextView
-        android:id="@+id/usageTime"
+    <LinearLayout
+        android:id="@+id/timeLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
+        android:orientation="vertical"
+        android:gravity="end"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="2h 15m" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/usageTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            tools:text="Używanie: 2h 15m" />
+
+        <TextView
+            android:id="@+id/idleTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            tools:text="Bezczynność: 1h 5m" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

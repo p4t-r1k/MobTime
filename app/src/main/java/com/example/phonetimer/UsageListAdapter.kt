@@ -28,10 +28,12 @@ class UsageListAdapter : RecyclerView.Adapter<UsageListAdapter.UsageViewHolder>(
 
     class UsageViewHolder(private val binding: ItemUsageBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(info: AppUsageInfo) {
+            val context = binding.root.context
             binding.appName.text = info.appName
             binding.packageName.text = info.packageName
             binding.appIcon.setImageDrawable(info.appIcon)
-            binding.usageTime.text = formatTime(info.usageTimeMillis)
+            binding.usageTime.text = context.getString(R.string.usage_prefix, formatTime(info.usageTimeMillis))
+            binding.idleTime.text = context.getString(R.string.idle_prefix, formatTime(info.idleTimeMillis))
         }
 
         private fun formatTime(millis: Long): String {

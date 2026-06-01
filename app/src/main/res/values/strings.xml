@@ -2,4 +2,6 @@
     <string name="app_name">Phone Usage Timer</string>
     <string name="grant_permission">Grant Permission</string>
     <string name="permission_description">This app needs Usage Access to track how much time you spend on each app. Please enable it in Settings.</string>
+    <string name="usage_prefix">Używanie: %s</string>
+    <string name="idle_prefix">Bezczynność: %s</string>
 </resources>
