@@ -11,8 +11,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.phonetimer.databinding.ActivityMainBinding
-import com.example.phonetimer.db.AppDatabase
-import com.example.phonetimer.db.AppUsageEntity
+import com.example.phonetimer.db.AppUsageDbHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val adapter = UsageListAdapter()
-    private val db by lazy { AppDatabase.getDatabase(this) }
+    private val dbHelper by lazy { AppUsageDbHelper(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,7 +101,7 @@ class MainActivity : AppCompatActivity() {
         
         // Fetch historical data from DB
         val historicalData = withContext(Dispatchers.IO) {
-            db.appUsageDao().getAll().associateBy { it.packageName }
+            dbHelper.getAllUsage()
         }
 
         val usageInfos = stats
@@ -138,14 +137,12 @@ class MainActivity : AppCompatActivity() {
 
                 // Save/Update in DB periodically (or here for simplicity in prototype)
                 withContext(Dispatchers.IO) {
-                    db.appUsageDao().insert(
-                        AppUsageEntity(
-                            packageName, 
-                            appName, 
-                            totalUsage, 
-                            totalIdle, 
-                            System.currentTimeMillis()
-                        )
+                    dbHelper.insertOrUpdate(
+                        packageName, 
+                        appName, 
+                        totalUsage, 
+                        totalIdle, 
+                        System.currentTimeMillis()
                     )
                 }
 
